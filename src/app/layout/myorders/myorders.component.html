@@ -1,0 +1,95 @@
+<div class="page-header" style="background: url(assets/img/hero-area.jpg); background:cover ">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-wrapper">
+          <h2 class="product-title">Cart</h2>
+          <ol class="breadcrumb">
+            <li><a href="#">Home /</a></li>
+            <li>My Orders</li>
+            <!-- <li class="current">Wax & Groom</li> -->
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="content" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-4 col-lg-3 page-sidebar">
+        <!-- Left Sidebar Import Here -->
+        <app-myprofile-sidebar></app-myprofile-sidebar>
+      </div>
+      <div class="col-sm-12 col-md-8 col-lg-9">
+        <div class="page-content bg-light">
+        <div class="inner-box">
+            <div class="dashboard-box">
+        <h2 class="dashbord-title">Order History</h2>
+        </div>
+           <table class="table table-responsive dashboardtable tablemyads" *ngIf="myOrderList.length > 0"> 
+        <thead>
+        <tr>
+        
+        <th>Order Id</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Payment Mode</th>
+        <th>Action</th>
+       
+      
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-category="active" *ngFor="let orderList of myOrderList ; let i = index">
+        
+        <td data-title="Title">
+          #{{orderList.order_no}}
+        </td>
+        <td data-title="Price">
+          ₹{{orderList.total_price}}
+        </td>
+        <td data-title="Price">
+          {{orderList.date_created}}
+        </td>
+        <td data-title="Price">
+         <span *ngIf="orderList.payment_type==1">Paytm</span>
+         <span *ngIf="orderList.payment_type==2">Cash On Delivery</span>
+        </td>
+        <td (click) = "current = i">
+            <i *ngIf="i != current" class="fa fa-chevron-right" aria-hidden="true"></i>
+            <i *ngIf="i == current" class="fa fa-chevron-down" aria-hidden="true"></i>
+        </td>
+
+          <div *ngFor="let orderDetails of orderList.order_details" class="panel-collapse"  [class.collapse]='current != i'>
+              <div class="panel-body">Name : {{orderDetails.package_name}}</div>
+              <div class="panel-body">Quantity : {{orderDetails.quantity}}</div>
+              <div class="panel-body">Unit Price : {{orderDetails.unit_price}}</div>
+              <div class="panel-body">Total Price : {{orderDetails.total_cost}}</div>
+              <!-- <ngb-rating [(rate)]="currentRate" max="5" (change)="addRating($event)"></ngb-rating> -->
+              <div class="panel-body" *ngIf="orderDetails.avg_rating ==0">
+
+              <a  *ngFor="let item of starList; let i=index " (click)="setStar(i,orderDetails.package_id,orderList.id,orderList.customer_id)">  
+                <i class="fa" [ngClass]="{'fa-star-o':item,'fa-star':!item}"></i>   
+               </a>  
+              </div>
+              <div class="panel-body" *ngIf="orderDetails.avg_rating > 0">Rating : {{orderDetails.avg_rating}} </div>
+              <hr>
+            </div>
+      
+        </tr>
+
+        </tbody>
+        </table> 
+        <p *ngIf="myOrderList.length == 0" class="no-records">No Records Found !!!!</p>
+           <hr> 
+            
+          
+        </div>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>

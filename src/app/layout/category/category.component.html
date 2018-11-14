@@ -1,0 +1,57 @@
+<div class="page-header" style="background: url(assets/img/hero-area.jpg); background:cover ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="product-title">Services</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home /</a></li>
+
+                        <li>Category /</li>
+                        <li class="current">{{categoryName}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="works section-padding catagory-page">
+    <div class="container">
+    <div class="row">
+    <div class="col-12">
+    <h3 class="section-title">BROWSE SERVICES</h3>
+    </div>
+    
+        
+    <div class="col-md-3 col-sm-6 col-xs-12"  *ngFor="let subcatlist of subcatList ; let i = index">
+    <div class="category-box red-border wow fadeInUpQuick animated" data-wow-delay="0.3s" >
+    <div class="icon">
+     <a [routerLink]="['.']">
+        <img [src]="subcatlist.image != '' && imageBaseUrl+ subcatlist.image || 'assets/img/no-img.png'" alt="">
+        </a>
+    </div>
+    <div class="category-header">
+     <a [routerLink]="['.']"><h4>{{subcatlist.name}}</h4></a>
+    </div>
+    <div class="category-content">
+    <ul>
+        <li  *ngFor="let service of subcatlist.services ; let i = index" (click)="gotoPackageListing(service.slug,subcatlist.slug)">
+         <a >{{service.name}}</a>
+    
+        </li>
+       
+    </ul>
+    <p  class="no-records" *ngIf="subcatlist.services.length < 1"> Services Not Available</p>
+    </div>
+    </div>
+    </div>
+    <p class="no-records" *ngIf="subcatList.length < 1"> Services Not Available</p>
+        
+           
+       
+    </div>
+    </div>
+    </section>
+    
+    
